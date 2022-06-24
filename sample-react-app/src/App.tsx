@@ -9,7 +9,14 @@ import { initializeApp } from "firebase/app";
 //     Firestore,
 // } from "firebase/firestore/lite";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+    getAuth,
+    onAuthStateChanged,
+    connectAuthEmulator,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+} from "firebase/auth";
 import { collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -24,17 +31,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+connectAuthEmulator(auth, "http://localhost:9099");
 // const db = getFirestore(app);
 // const analytics = getAnalytics(app);
 // const todosCol = collection(db, 'todos');
-
-onAuthStateChanged(auth, (user) => {
-    if (user !== null) {
-        console.log("logged in!");
-    } else {
-        console.log("No user");
-    }
-});
 
 // Get a list of cities from your database
 // async function getCities(db: Firestore) {
@@ -44,10 +44,45 @@ onAuthStateChanged(auth, (user) => {
 //     return cityList;
 // }
 
-const signIn = () => {};
-
 function App() {
     const [user, setUser] = useState({});
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const loginEmailPassword = async () => {
+        try {
+            const userCredentials = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            console.log(userCredentials.user);
+        } catch (error) {}
+    };
+
+    const createAccount = async () => {
+        try {
+            const userCredentials = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            console.log(userCredentials.user);
+        } catch (error) {}
+    };
+
+    const logOut = async () => {
+        await signOut(auth);
+    };
+
+    onAuthStateChanged(auth, (user) => {
+        if (user !== null) {
+            console.log("logged in!");
+            setUser(user);
+        } else {
+            console.log("No user");
+        }
+    });
 
     // useEffect(() => {
     //     first;
