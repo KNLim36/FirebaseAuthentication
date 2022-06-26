@@ -38,7 +38,6 @@ onAuthStateChanged(auth, (user) => {
 });
 
 function App() {
-    // const [user] = useAuthState(auth);
     const [user, setUser] = useState<User | null | undefined>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -77,6 +76,9 @@ function App() {
     const logOut = async () => {
         await signOut(auth);
         setIsError(false);
+        setUser(undefined);
+        setEmail("");
+        setPassword("");
     };
 
     return (
