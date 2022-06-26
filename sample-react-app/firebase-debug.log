@@ -1,0 +1,28 @@
+[debug] [2022-06-26T14:18:19.938Z] ----------------------------------------------------------------------
+[debug] [2022-06-26T14:18:19.940Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\knlim\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only auth
+[debug] [2022-06-26T14:18:19.940Z] CLI Version:   11.1.0
+[debug] [2022-06-26T14:18:19.940Z] Platform:      win32
+[debug] [2022-06-26T14:18:19.940Z] Node Version:  v16.14.2
+[debug] [2022-06-26T14:18:19.941Z] Time:          Sun Jun 26 2022 22:18:19 GMT+0800 (Malaysia Time)
+[debug] [2022-06-26T14:18:19.941Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-26T14:18:19.988Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-26T14:18:19.989Z] > authorizing via signed-in user (knlim36@gmail.com)
+[info] i  emulators: Starting emulators: auth {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth"}}
+[debug] [2022-06-26T14:18:20.015Z] [hub] writing locator at C:\Users\knlim\AppData\Local\Temp\hub-sampleauthentication-ebe43.json
+[warn] !  emulators: The Emulator UI requires a project ID to start. Configure your default project with 'firebase use' or pass the --project flag. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI requires a project ID to start. Configure your default project with 'firebase use' or pass the --project flag."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┐
+│ Emulator       │ Host:Port      │
+├────────────────┼────────────────┤
+│ Authentication │ localhost:9099 │
+└────────────────┴────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

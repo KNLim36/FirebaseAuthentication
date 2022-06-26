@@ -32,7 +32,68 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+#parent-box {
+  margin: auto;
+}
+
+.content-box {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#register-button {
+  width: 35%;
+  background-color: transparent;
+  color: aquamarine;
+  border-width: 0px;
+  cursor: pointer;
+  height: 30px;
+  margin-top: 1%;
+}
+
+#register-button:hover {
+  text-decoration: underline;
+}
+
+#login-button {
+  width: 35%;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#login-button:hover {
+  color: aquamarine;
+  background-color: #282c34;
+  border-color: aquamarine;
+}
+
+#logout-button {
+  width: 25%;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#logout-button:hover {
+  color: white;
+  background-color: red;
+}
+
+#error-text {
+  font-size: 1rem;
+  color: red;
+}
+
+h3 {
+  color: aquamarine;
 }

@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { initializeApp } from "firebase/app";
-// import {
-//     getFirestore,
-//     collection,
-//     getDocs,
-//     Firestore,
-// } from "firebase/firestore/lite";
-import { getAnalytics } from "firebase/analytics";
 import {
     getAuth,
     onAuthStateChanged,
@@ -16,8 +7,12 @@ import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
+    User,
 } from "firebase/auth";
-import { collection, getFirestore } from "firebase/firestore";
+import "./App.css";
+import NotLoggedIn from "./pages/NotLoggedIn";
+import LoggedIn from "./pages/LoggedIn";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDO-M6Cu-kN-caj5ND5kgwj5dmTJwKjkWI",
@@ -31,23 +26,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-connectAuthEmulator(auth, "http://localhost:9099");
-// const db = getFirestore(app);
-// const analytics = getAnalytics(app);
-// const todosCol = collection(db, 'todos');
 
-// Get a list of cities from your database
-// async function getCities(db: Firestore) {
-//     const citiesCol = collection(db, "cities");
-//     const citySnapshot = await getDocs(citiesCol);
-//     const cityList = citySnapshot.docs.map((doc) => doc.data());
-//     return cityList;
-// }
+connectAuthEmulator(auth, "http://localhost:9099");
+
+onAuthStateChanged(auth, (user) => {
+    if (user !== null) {
+        console.log("logged in!");
+    } else {
+        console.log("No user");
+    }
+});
 
 function App() {
-    const [user, setUser] = useState({});
+    // const [user] = useAuthState(auth);
+    const [user, setUser] = useState<User | null | undefined>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isError, setIsError] = useState(false);
 
     const loginEmailPassword = async () => {
         try {
@@ -56,8 +51,12 @@ function App() {
                 email,
                 password
             );
-            console.log(userCredentials.user);
-        } catch (error) {}
+            setUser(userCredentials.user);
+            return Promise.resolve();
+        } catch (error) {
+            setIsError(true);
+            return Promise.reject(error);
+        }
     };
 
     const createAccount = async () => {
@@ -67,63 +66,55 @@ function App() {
                 email,
                 password
             );
-            console.log(userCredentials.user);
-        } catch (error) {}
+            setUser(userCredentials.user);
+            return Promise.resolve();
+        } catch (error) {
+            setIsError(true);
+            return Promise.reject(error);
+        }
     };
 
     const logOut = async () => {
         await signOut(auth);
+        setIsError(false);
     };
 
-    onAuthStateChanged(auth, (user) => {
-        if (user !== null) {
-            console.log("logged in!");
-            setUser(user);
-        } else {
-            console.log("No user");
-        }
-    });
-
-    // useEffect(() => {
-    //     first;
-
-    //     return () => {
-    //         second;
-    //     };
-    // }, [user]);
-
     return (
-        <div className="App">
-            <header className="App-header">
-                {user && (
-                    <div>
-                        <h1>You are not signed in</h1>
-                        <div>
-                            <label>Email</label>
-                            <input type="text" id="email" name="email" />
-                        </div>
-                        <br></br>
-                        <div>
-                            <label>Password</label>{" "}
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                            />
-                            <br></br>
-                        </div>
-                        <div>
-                            <input
-                                type="button"
-                                id="loginButton"
-                                name="loginButton"
-                                value="Sign In"
-                            />
-                        </div>
-                    </div>
-                )}
-            </header>
-        </div>
+        <BrowserRouter>
+            <div className="App">
+                <header className="App-header">
+                    <Routes>
+                        {/* {!user && ( */}
+                        <Route path="/">
+                            <Route
+                                path="/"
+                                element={
+                                    <NotLoggedIn
+                                        setEmail={setEmail}
+                                        setPassword={setPassword}
+                                        isError={isError}
+                                        loginEmailPassword={loginEmailPassword}
+                                        createAccount={createAccount}
+                                    ></NotLoggedIn>
+                                }
+                            ></Route>
+                            {/* )} */}
+                            {/* {user && ( */}
+                            <Route
+                                path="/LoggedIn"
+                                element={
+                                    <LoggedIn
+                                        user={user}
+                                        logOut={logOut}
+                                    ></LoggedIn>
+                                }
+                            ></Route>
+                            {/* )} */}
+                        </Route>
+                    </Routes>
+                </header>
+            </div>
+        </BrowserRouter>
     );
 }
 
