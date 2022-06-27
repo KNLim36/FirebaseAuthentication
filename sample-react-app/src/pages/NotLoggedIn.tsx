@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -24,8 +24,6 @@ export default function NotLoggedIn({
                 <label>Email</label>
                 <input
                     type="email"
-                    id="email"
-                    name="email"
                     onChange={(e) => {
                         setEmail(e.target.value);
                     }}
@@ -36,8 +34,6 @@ export default function NotLoggedIn({
                 <label>Password</label>{" "}
                 <input
                     type="password"
-                    id="password"
-                    name="password"
                     onChange={(e) => {
                         setPassword(e.target.value);
                     }}
@@ -55,7 +51,6 @@ export default function NotLoggedIn({
                         });
                     }}
                     type="button"
-                    name="loginButton"
                     id="login-button"
                     value="Sign In"
                 />

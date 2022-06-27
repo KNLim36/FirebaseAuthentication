@@ -86,7 +86,6 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <Routes>
-                        {/* {!user && ( */}
                         <Route path="/">
                             <Route
                                 path="/"
@@ -100,8 +99,6 @@ function App() {
                                     ></NotLoggedIn>
                                 }
                             ></Route>
-                            {/* )} */}
-                            {/* {user && ( */}
                             <Route
                                 path="/LoggedIn"
                                 element={
@@ -111,7 +108,6 @@ function App() {
                                     ></LoggedIn>
                                 }
                             ></Route>
-                            {/* )} */}
                         </Route>
                     </Routes>
                 </header>
