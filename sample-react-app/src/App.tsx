@@ -86,29 +86,27 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <Routes>
-                        <Route path="/">
-                            <Route
-                                path="/"
-                                element={
-                                    <NotLoggedIn
-                                        setEmail={setEmail}
-                                        setPassword={setPassword}
-                                        isError={isError}
-                                        loginEmailPassword={loginEmailPassword}
-                                        createAccount={createAccount}
-                                    ></NotLoggedIn>
-                                }
-                            ></Route>
-                            <Route
-                                path="/LoggedIn"
-                                element={
-                                    <LoggedIn
-                                        user={user}
-                                        logOut={logOut}
-                                    ></LoggedIn>
-                                }
-                            ></Route>
-                        </Route>
+                        <Route
+                            path="/"
+                            element={
+                                <NotLoggedIn
+                                    setEmail={setEmail}
+                                    setPassword={setPassword}
+                                    isError={isError}
+                                    loginEmailPassword={loginEmailPassword}
+                                    createAccount={createAccount}
+                                ></NotLoggedIn>
+                            }
+                        ></Route>
+                        <Route
+                            path="/LoggedIn"
+                            element={
+                                <LoggedIn
+                                    user={user}
+                                    logOut={logOut}
+                                ></LoggedIn>
+                            }
+                        ></Route>
                     </Routes>
                 </header>
             </div>
